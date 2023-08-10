@@ -1,9 +1,37 @@
 <% layout('/layouts/boilerplate') %>
+<style>
+    .dashboardBackground{
+  /* margin-right: 30em !important; */
+  width: 90em !important;
+  height: 50em !important;
+  position: relative;
+  right: 10em;
+  bottom: 1.5em;
+}
+.dashboardlogo{
+  position: absolute;
+  bottom: 23% !important;
+  left: 5%;
+  opacity: .7;
+  /* width: 70em !important; */
+}
+@media only screen and (max-width: 760px) {
+    .dashboardlogo{
+        position: absolute;
+        left: -12%;
+        top: 25%;
+    }
+}
+</style>
 
 
 
-<section class="dash m-0 p-0">
-    <img src="static/assets/dashboard-logo.png" alt="Landing Page Image" class="dashboard img-fluid">
-</section>
-
-
+<main class="container p-0 mb-5">
+    <div class="container-fluid p-0 me-5 dashboardBackground">
+       <img src="static/assets/background.jpg" alt="Landing Page Image" class="img-fluid" style="max-width: 100%; height: auto;">
+      </div>
+      <div class="container-fluid p-0 ms-5 text-center dashboardlogo">
+        <img src="static/assets/logodashboard.png" alt="Landing Page Image" class="img-fluid" style="max-width: 100%; height: auto;">
+      </div>
+    </main>
+    

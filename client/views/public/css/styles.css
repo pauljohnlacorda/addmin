@@ -11885,7 +11885,7 @@ input[type="number"] {
   background-repeat: no-repeat; */
   color: #000;
   /* overflow-x: hidden; */
-  background-color: rgb(244, 145, 145);
+  /* background-color: rgb(244, 145, 145); */
 }
 .lightbox-gallery p {
   color: #fff;
@@ -11913,10 +11913,28 @@ input[type="number"] {
 }
 .lightbox-gallery .photos {
   padding-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 .lightbox-gallery .item {
   padding-bottom: 30px;
+  width: calc(33.33% - 10px);
+  margin-bottom: 20px;
 }
+.lightbox-gallery .item img {
+  width: 100%;
+  height: auto;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, .2);
+ 
+}
+
+
+
+
+
+
+
 /* addservice Modal Styles */
 .modal-overlay {
   display: none;

@@ -1,6 +1,27 @@
 <% layout('/layouts/boilerplate') %>
+<style>
+ 
+  button{
+    box-shadow: 5px 5px 10px rgba(0,0,0,.1);
+    border: 1px solid rgba(0,0,0,.2) !important;
+  }
+  #closeModalButton{
+    margin-left: 12em;
+    /* width: 1.5em !important; */
+    border: 0px solid black !important;
+    box-shadow: 0px 0px 0px;
+  }
+ select, input{
+  border: 1px solid rgba(0,0,0,.2) !important;
+ }
+ @media only screen and (max-width: 760px) {
+  *{
+    font-size:small !important;
+  }
+ }
+</style>
 <main>
-  <h1>All Services</h1>
+  <h3 class="ms-2">All Services</h3>
   <button id="addServiceButton">Add Service</button>
 
   <div class="modal-overlay" id="addServiceModal">
@@ -11,9 +32,10 @@
           <label for="category">Category:</label>
           <select id="category" name="service[category]" required>
             <option value="">Select a category</option>
-            <option value="Category 1">Category 1</option>
-            <option value="Category 2">Category 2</option>
-            <option value="Category 3">Category 3</option>
+            <option value="Nails">Nails</option>
+            <option value="Foot Spa">Foot Spa</option>
+            <option value="Mesotheraphy">Mesotheraphy</option>
+            <option value="Gluta">Gluta</option>
           </select>
           <div class="valid-feedback">Looks good!</div>
         </div>
@@ -27,7 +49,7 @@
           <input type="number" id="price" name="service[price]" required>
           <div class="valid-feedback">Looks good!</div>
         </div>
-        <button type="submit">Add Service</button>
+        <button type="submit" class="ms-2 my-4">Add Service</button>
       </form>
     </div>
   </div>
