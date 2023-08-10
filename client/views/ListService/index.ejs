@@ -1,0 +1,166 @@
+<% layout('/layouts/boilerplate') %>
+<main>
+  <h1>All Services</h1>
+  <button id="addServiceButton">Add Service</button>
+
+  <div class="modal-overlay" id="addServiceModal">
+    <div class="modal-content">
+      <button class="close-button" id="closeModalButton">&times;</button>
+      <form id="addServiceModalForm" action="/ListService" method="POST" novalidate class="validated-form">
+        <div>
+          <label for="category">Category:</label>
+          <select id="category" name="service[category]" required>
+            <option value="">Select a category</option>
+            <option value="Category 1">Category 1</option>
+            <option value="Category 2">Category 2</option>
+            <option value="Category 3">Category 3</option>
+          </select>
+          <div class="valid-feedback">Looks good!</div>
+        </div>
+        <div>
+          <label for="serviceName">Service Name:</label>
+          <input type="text" id="serviceName" name="service[serviceName]" required>
+          <div class="valid-feedback">Looks good!</div>
+        </div>
+        <div>
+          <label for="price">Price:</label>
+          <input type="number" id="price" name="service[price]" required>
+          <div class="valid-feedback">Looks good!</div>
+        </div>
+        <button type="submit">Add Service</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="updateModal">
+    <div class="modal-content">
+      <button class="close-button" id="closeupdateModalButton">&times;</button>
+      <form id="updateServiceModalForm" action="/ListService/<%= service._id %>?_method=PUT" method="POST" novalidate
+        class="validated-form">
+        <div>
+          <label for="category">Category:</label>
+          <select id="category" name="service[category]" required>
+            <option value="">Select a category</option>
+            <option value="Category 1" <% if (service.category==='Category 1' ) { %>selected<% } %>>Category 1</option>
+            <option value="Category 2" <% if (service.category==='Category 2' ) { %>selected<% } %>>Category 2</option>
+            <option value="Category 3" <% if (service.category==='Category 3' ) { %>selected<% } %>>Category 3</option>
+          </select>
+          <div class="valid-feedback">Looks good!</div>
+        </div>
+        <div>
+          <label for="serviceName">Service Name:</label>
+          <input type="text" id="serviceName" name="service[serviceName]" value="<%= service.serviceName %>" required>
+          <div class="valid-feedback">Looks good!</div>
+        </div>
+        <div>
+          <label for="price">Price:</label>
+          <input type="number" id="price" name="service[price]" value="<%= service.price %>" required>
+          <div class="valid-feedback">Looks good!</div>
+        </div>
+        <button type="submit">Update Service</button>
+      </form>
+    </div>
+  </div>
+
+
+
+
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Service Name</th>
+        <th scope="col">Category</th>
+        <th scope="col">Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for (let i=0; i < services.length; i++) { %>
+        <tr>
+          <td>
+            <%= i + 1 %>
+          </td>
+          <td>
+            <%= services[i].serviceName %>
+          </td>
+          <td>
+            <%= services[i].category %>
+          </td>
+          <td>
+            <%= services[i].price %>
+          </td>
+          <td>
+            <a href="#" class="open-modal" data-service-id="<%= services[i]._id %>">
+              <i class="bi bi-pencil-square"></i>
+            </a>
+          </td>
+          <td>
+            <form action="/ListService/<%= services[i]._id %>?_method=DELETE" method="POST">
+              <button><i class="fa-solid fa-trash-can"></i></button>
+            </form>
+          </td>
+        </tr>
+        <% } %>
+    </tbody>
+  </table>
+
+
+</main>
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Add Service Modal
+      let addServiceButton = document.getElementById('addServiceButton');
+      let addServiceModal = document.getElementById('addServiceModal');
+      let closeModalButton = document.getElementById('closeModalButton');
+
+      addServiceButton.addEventListener('click', function () {
+        addServiceModal.style.display = 'block';
+      });
+
+      closeModalButton.addEventListener('click', function () {
+        addServiceModal.style.display = 'none';
+      });
+
+      // Update Modal
+      let openModalLinks = document.getElementsByClassName('open-modal');
+      let updateModal = document.getElementById('updateModal');
+      let updateForm = document.getElementById('updateServiceModalForm');
+      let closeupdateModalButton = document.getElementById('closeupdateModalButton');
+
+      for (let i = 0; i < openModalLinks.length; i++) {
+        openModalLinks[i].addEventListener('click', function (event) {
+          event.preventDefault(); // Prevent the default link behavior
+
+          let serviceId = this.getAttribute('data-service-id');
+          openUpdateModal(serviceId);
+        });
+      }
+
+      function openUpdateModal(serviceId) {
+        // Get the update modal element
+        updateForm.action = `/ListService/${serviceId}?_method=PUT`;
+        // Fetch the current service values
+        fetch(`/service${serviceId}`)
+          .then(response => response.json())
+          .then(service => {
+            // Set the current values as the input field values
+            document.getElementById('category').value = service.category;
+            document.getElementById('serviceName').value = service.serviceName;
+            document.getElementById('price').value = service.price;
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+
+        // Open the update modal
+        updateModal.style.display = 'block';
+      }
+
+      closeupdateModalButton.addEventListener('click', function () {
+        updateModal.style.display = 'none';
+      });
+    });
+  </script>
