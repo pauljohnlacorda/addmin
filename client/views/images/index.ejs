@@ -20,10 +20,11 @@
         <% if (images.length> 0) { %>
           <% images.map((image, index)=> { %>
             <div class="item">
-              <img src="<%= image.avatar %>" alt="<%= image.title %>">
-              <button type="button" class="delete-button mt-3 btn btn-light" data-toggle="modal"
+              <img src="<%= image.avatar %>" alt="image">
+              <h4><%- image.title %></h4>
+              <button type="button" class="delete-button mt-1 btn btn-light border" data-toggle="modal"
                 data-target="#confirmDeleteModal<%= index %>">
-                <i class="fas fa-trash-alt"></i>
+                <!-- <i class="fas fa-trash-alt"></i> --> Delete
               </button>
 
               <!-- Confirmation Modal -->
